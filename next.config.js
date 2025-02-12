@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  basePath: '/ramify-simu-succession',
+  assetPrefix: '/ramify-simu-succession',
 }
 
 module.exports = nextConfig 
