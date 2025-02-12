@@ -22,5 +22,5 @@ touch out/.nojekyll
 # Restore original ESLint config
 mv .eslintrc.json.bak .eslintrc.json
 
-# Deploy to GitHub Pages with dotfiles
-gh-pages -d out --dotfiles true 
+# Deploy to GitHub Pages
+npx gh-pages --dist out --dotfiles true 
