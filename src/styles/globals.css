@@ -3,13 +3,59 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background--primary: #f8f7f7;
+  --background--white: #ffffff;
+  --background--black: #171717;
+  --text--primary: #1e1e1e;
+  --text--secondary: #726f6b;
+  --text--alternate-primary: #ffffff;
+  --color--gold500: #efc27e;
+  --color--gold200: #f9f3eb;
+  --color--gold400: #f2d6ac;
+  --color--gold700: #b4843b;
+  --color--gold800: #856432;
+  --radius--main: 0.25rem;
+  --radius--large: 0.5rem;
+  --shadow--light-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  --shadow--dark-strong: 0 4px 20px -2px rgba(0, 0, 0, 0.2);
 }
 
 @layer base {
   body {
-    @apply text-secondary-900 bg-secondary-50;
+    @apply bg-background-primary text-text-primary;
+    font-family: "PP Fragment Sans", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-normal;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { @apply text-h1; }
+  h2 { @apply text-h2; }
+  h3 { @apply text-h3; }
+  h4 { @apply text-h4; }
+  h5 { @apply text-h5; }
+  h6 { @apply text-h6; }
+}
+
+@layer components {
+  .button {
+    @apply px-4 py-2 rounded-main transition-all duration-200;
+    @apply bg-primary text-text-alternate shadow-light-soft;
+    @apply hover:bg-primary-700 focus:ring-2 focus:ring-primary-400 focus:ring-offset-2;
+  }
+
+  .button-light {
+    @apply bg-background-white text-text-primary;
+    @apply hover:bg-grey-100;
+  }
+
+  .button-gold {
+    @apply bg-primary text-text-primary;
+    @apply hover:bg-primary-700 hover:text-text-alternate;
   }
 }
 

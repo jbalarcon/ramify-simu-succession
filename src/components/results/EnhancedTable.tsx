@@ -62,13 +62,13 @@ export default function EnhancedTable({
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+        <h3 className="text-h4 font-serif text-text-primary">{title}</h3>
         
         <div className="flex flex-col sm:flex-row gap-4">
           <input
             type="text"
             placeholder="Rechercher..."
-            className="px-3 py-2 border rounded-md"
+            className="px-4 py-3 rounded-main border-0 ring-1 ring-grey-300 focus:ring-2 focus:ring-primary bg-background-white text-text-primary"
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
           />
@@ -78,10 +78,10 @@ export default function EnhancedTable({
               <button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                className={`px-3 py-1 rounded-full text-sm ${
+                className={`px-3 py-1 rounded-main text-sm transition-colors duration-200 ${
                   selectedCategories.includes(category)
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    ? 'bg-primary text-text-alternate'
+                    : 'bg-grey-100 text-text-secondary hover:bg-grey-200'
                 }`}
               >
                 {category}
@@ -92,62 +92,62 @@ export default function EnhancedTable({
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-grey-200">
+          <thead className="bg-grey-50">
             <tr>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-text-primary transition-colors"
                 onClick={() => handleSort('label')}
               >
                 {title} {getSortIcon('label')}
               </th>
               <th
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-text-primary transition-colors"
                 onClick={() => handleSort('montantClient')}
               >
                 Montant Client {getSortIcon('montantClient')}
               </th>
               <th
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-text-primary transition-colors"
                 onClick={() => handleSort('montantConjoint')}
               >
                 Montant Conjoint {getSortIcon('montantConjoint')}
               </th>
               <th
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-text-primary transition-colors"
                 onClick={() => handleSort('total')}
               >
                 Total {getSortIcon('total')}
               </th>
               <th
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-text-primary transition-colors"
                 onClick={() => handleSort('percentage')}
               >
                 % {getSortIcon('percentage')}
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-background-white divide-y divide-grey-200">
             {data.map((item) => (
-              <tr key={item.key}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              <tr key={item.key} className="hover:bg-grey-50 transition-colors">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div>
-                    {item.label}
-                    <span className="text-xs text-gray-500 ml-2">
+                    <span className="text-sm text-text-primary">{item.label}</span>
+                    <span className="text-xs text-text-secondary ml-2">
                       {item.category}
                     </span>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-text-primary">
                   {formatCurrency(item.montantClient)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-text-primary">
                   {formatCurrency(item.montantConjoint)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-text-primary">
                   {formatCurrency(item.total)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-text-primary">
                   {formatPercentage(item.percentage)}
                 </td>
               </tr>

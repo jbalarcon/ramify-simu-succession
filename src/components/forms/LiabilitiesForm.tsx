@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 export default function LiabilitiesForm() {
   const { personalInfo, patrimony, updatePatrimony } = useFormContext();
-  const { setCanProceed } = useStepper();
+  const { setCanProceed, currentStep, setCurrentStep, canProceed } = useStepper();
   const showConjoint = personalInfo.regime !== 'celibataire';
 
   const {
@@ -26,35 +26,55 @@ export default function LiabilitiesForm() {
     mode: 'onChange',
   });
 
-  const formData = watch();
+  const values = watch();
 
   useEffect(() => {
     setCanProceed(isValid);
   }, [isValid, setCanProceed]);
 
-  // Automatically submit form data when it changes
   useEffect(() => {
-    if (isValid) {
-      updatePatrimony({
-        emprunts: {
-          montantClient: formData.emprunts?.montantClient || 0,
-          montantConjoint: formData.emprunts?.montantConjoint || 0
-        },
-        impotsDus: {
-          montantClient: formData.impotsDus?.montantClient || 0,
-          montantConjoint: formData.impotsDus?.montantConjoint || 0
-        },
-        autresDettes: {
-          montantClient: formData.autresDettes?.montantClient || 0,
-          montantConjoint: formData.autresDettes?.montantConjoint || 0
-        },
-        fraisFuneraires: {
-          montantClient: formData.fraisFuneraires?.montantClient || 0,
-          montantConjoint: formData.fraisFuneraires?.montantConjoint || 0
-        }
-      });
+    if (!isValid) return;
+    
+    const newPatrimonyData = {
+      emprunts: {
+        montantClient: values.emprunts?.montantClient || 0,
+        montantConjoint: values.emprunts?.montantConjoint || 0
+      },
+      impotsDus: {
+        montantClient: values.impotsDus?.montantClient || 0,
+        montantConjoint: values.impotsDus?.montantConjoint || 0
+      },
+      autresDettes: {
+        montantClient: values.autresDettes?.montantClient || 0,
+        montantConjoint: values.autresDettes?.montantConjoint || 0
+      },
+      fraisFuneraires: {
+        montantClient: values.fraisFuneraires?.montantClient || 0,
+        montantConjoint: values.fraisFuneraires?.montantConjoint || 0
+      }
+    };
+    
+    const hasChanged = Object.keys(newPatrimonyData).some(key => {
+      const newValue = newPatrimonyData[key as keyof typeof newPatrimonyData];
+      const oldValue = patrimony[key as keyof typeof patrimony];
+      return newValue.montantClient !== oldValue.montantClient || 
+             newValue.montantConjoint !== oldValue.montantConjoint;
+    });
+    
+    if (hasChanged) {
+      updatePatrimony(newPatrimonyData);
     }
-  }, [formData, isValid, updatePatrimony]);
+  }, [isValid, values, updatePatrimony, patrimony]);
+
+  const nextStep = () => {
+    if (canProceed) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    setCurrentStep(Math.max(0, currentStep - 1));
+  };
 
   const liabilityFields = [
     { key: 'emprunts' as const, label: 'Emprunts' },
@@ -64,31 +84,61 @@ export default function LiabilitiesForm() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-4">
-        {liabilityFields.map((field) => (
-          <AssetInput<LiabilitiesFormInputs>
-            key={field.key}
-            label={field.label}
-            fieldName={field.key}
-            register={register}
-            errors={errors}
-            showConjoint={showConjoint}
-          />
-        ))}
-      </div>
-
-      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
+    <div className="max-w-2xl mx-auto animate-fade-in">
+      <div className="bg-background-white shadow-light-soft rounded-large p-6">
+        <div className="space-y-6">
+          <div className="space-y-4">
+            {liabilityFields.map((field) => (
+              <AssetInput<LiabilitiesFormInputs>
+                key={field.key}
+                label={field.label}
+                fieldName={field.key}
+                register={register}
+                errors={errors}
+                showConjoint={showConjoint}
+              />
+            ))}
           </div>
-          <div className="ml-3">
-            <p className="text-sm text-yellow-700">
-              Les montants saisis seront déduits du patrimoine total.
-            </p>
+
+          <div className="bg-primary-200 border-l-4 border-primary rounded-main p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-primary-800" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-primary-800">
+                  Les montants saisis seront déduits du patrimoine total.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between pt-5">
+            <button
+              type="button"
+              onClick={prevStep}
+              disabled={currentStep === 0}
+              className={`
+                ${currentStep === 0 ? 'invisible' : ''}
+                button button-light
+              `}
+            >
+              Précédent
+            </button>
+            
+            <button
+              type="button"
+              onClick={nextStep}
+              disabled={!canProceed}
+              className={`
+                button
+                ${!canProceed && 'opacity-50 cursor-not-allowed'}
+              `}
+            >
+              Suivant
+            </button>
           </div>
         </div>
       </div>

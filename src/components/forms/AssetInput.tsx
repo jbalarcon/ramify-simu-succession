@@ -29,14 +29,21 @@ export default function AssetInput<T extends FormType>({
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-secondary-700 mb-2">
+        <label className="block text-sm font-medium text-text-primary mb-2">
           {label} - Client
         </label>
         <input
           type="number"
-          className={`mt-1 block w-full rounded-md shadow-sm ${
-            clientError ? 'border-red-300' : 'border-gray-300'
-          }`}
+          className={`
+            block w-full rounded-main px-4 py-3 
+            bg-background-white border-0
+            text-text-primary ring-1 ring-inset
+            focus:ring-2 focus:ring-inset transition-all duration-200
+            ${clientError 
+              ? 'ring-red-500 focus:ring-red-500' 
+              : 'ring-grey-300 focus:ring-primary'
+            }
+          `}
           {...register(clientPath, { 
             valueAsNumber: true,
             required: "Ce champ est requis",
@@ -52,14 +59,21 @@ export default function AssetInput<T extends FormType>({
 
       {showConjoint && (
         <div>
-          <label className="block text-sm font-medium text-secondary-700 mb-2">
+          <label className="block text-sm font-medium text-text-primary mb-2">
             {label} - Conjoint
           </label>
           <input
             type="number"
-            className={`mt-1 block w-full rounded-md shadow-sm ${
-              conjointError ? 'border-red-300' : 'border-gray-300'
-            }`}
+            className={`
+              block w-full rounded-main px-4 py-3 
+              bg-background-white border-0
+              text-text-primary ring-1 ring-inset
+              focus:ring-2 focus:ring-inset transition-all duration-200
+              ${conjointError 
+                ? 'ring-red-500 focus:ring-red-500' 
+                : 'ring-grey-300 focus:ring-primary'
+              }
+            `}
             {...register(conjointPath, {
               valueAsNumber: true,
               required: "Ce champ est requis",

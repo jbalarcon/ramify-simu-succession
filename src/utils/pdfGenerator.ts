@@ -96,5 +96,8 @@ export function generatePDF(
     doc.internal.pageSize.height - 20
   );
 
+  // Save the PDF with a meaningful name
+  doc.save('rapport-succession.pdf');
+
   return doc;
 }

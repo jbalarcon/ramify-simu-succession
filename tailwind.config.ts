@@ -10,74 +10,66 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          DEFAULT: '#efc27e', // gold500
+          200: '#f9f3eb',    // gold200
+          400: '#f2d6ac',    // gold400
+          500: '#efc27e',    // gold500
+          700: '#b4843b',    // gold700
+          800: '#856432',    // gold800
         },
-        secondary: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
+        grey: {
+          50: '#ffffff',     // grey000
+          100: '#f8f7f7',    // grey100
+          200: '#ecebea',    // grey200
+          300: '#d9d6d2',    // grey300
+          400: '#bdb9b3',    // grey400
+          500: '#989591',    // grey500
+          600: '#726f6b',    // grey600
+          700: '#585450',    // grey700
+          800: '#2f2e2c',    // grey800
+          900: '#1e1e1e',    // grey900
+          1000: '#171717',   // grey1000
         },
-        success: {
-          50: '#f0fdf4',
-          500: '#22c55e',
-          700: '#15803d',
+        text: {
+          primary: '#1e1e1e',
+          secondary: '#726f6b',
+          alternate: '#ffffff',
         },
-        warning: {
-          50: '#fffbeb',
-          500: '#f59e0b',
-          700: '#b45309',
+        background: {
+          primary: '#f8f7f7',
+          white: '#ffffff',
+          black: '#171717',
         },
-        error: {
-          50: '#fef2f2',
-          500: '#ef4444',
-          700: '#b91c1c',
+        border: {
+          primary: '#1e1e1e26',
         },
-        background: "var(--background)",
-        foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['Inter var', 'system-ui', 'sans-serif'],
-      },
-      spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
+        sans: ['"PP Fragment Sans"', 'Arial', 'system-ui', 'sans-serif'],
+        serif: ['"PP Fragment Serif"', 'serif'],
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
+        'main': '0.25rem',
+        'large': '0.5rem',
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'light-soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'dark-strong': '0 4px 20px -2px rgba(0, 0, 0, 0.2)',
       },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+      fontSize: {
+        'h1': ['4rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h2': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h3': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h4': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.02em' }],
+        'h5': ['1.5rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h6': ['1.125rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
+      spacing: {
+        'tiny': '0.25rem',
+        'xsmall': '1rem',
+        'small': '1.5rem',
+        'medium': '2rem',
+        'large': '3rem',
       },
     },
   },

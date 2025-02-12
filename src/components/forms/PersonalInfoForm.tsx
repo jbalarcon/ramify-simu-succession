@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export default function PersonalInfoForm() {
   const { personalInfo, updatePersonalInfo } = useFormContext();
-  const { setCanProceed } = useStepper();
+  const { setCanProceed, currentStep, setCurrentStep, canProceed } = useStepper();
   
   const {
     register,
@@ -19,39 +19,63 @@ export default function PersonalInfoForm() {
     mode: 'onChange',
   });
 
-  const regime = watch('regime');
-  const formData = watch();
+  const values = watch();
+  const regime = values.regime;
 
   useEffect(() => {
     setCanProceed(isValid);
   }, [isValid, setCanProceed]);
 
-  // Automatically submit form data when it changes
   useEffect(() => {
-    if (isValid) {
-      const submissionData = {
-        ...formData,
-        ageConjoint: formData.ageConjoint || undefined
-      };
-      updatePersonalInfo(submissionData);
+    if (!isValid) return;
+    
+    const newPersonalInfo = {
+      regime: values.regime,
+      age: values.age || 0,
+      nombreEnfants: values.nombreEnfants || 0,
+      ageConjoint: values.ageConjoint || undefined
+    };
+    
+    const hasChanged = 
+      newPersonalInfo.regime !== personalInfo.regime ||
+      newPersonalInfo.age !== personalInfo.age ||
+      newPersonalInfo.nombreEnfants !== personalInfo.nombreEnfants ||
+      newPersonalInfo.ageConjoint !== personalInfo.ageConjoint;
+    
+    if (hasChanged) {
+      updatePersonalInfo(newPersonalInfo);
     }
-  }, [formData, isValid, updatePersonalInfo]);
+  }, [isValid, values, updatePersonalInfo, personalInfo]);
+
+  const nextStep = () => {
+    if (canProceed) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    setCurrentStep(Math.max(0, currentStep - 1));
+  };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 animate-fade-in">
-      <div className="bg-white shadow-soft rounded-xl p-6 space-y-6">
+    <div className="max-w-2xl mx-auto animate-fade-in">
+      <div className="bg-background-white shadow-light-soft rounded-large p-6">
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-secondary-700 mb-2">
+            <label className="block text-sm font-medium text-text-primary mb-2">
               Régime matrimonial
             </label>
             <select
               {...register('regime')}
               className={`
-                block w-full rounded-lg border-0 px-4 py-3 bg-secondary-50
-                text-secondary-900 ring-1 ring-inset focus:ring-2 focus:ring-inset
-                ${errors.regime ? 'ring-red-500' : 'ring-secondary-200'}
-                ${errors.regime ? 'focus:ring-red-500' : 'focus:ring-primary-500'}
+                block w-full rounded-main px-4 py-3 
+                bg-background-white border-0
+                text-text-primary ring-1 ring-inset
+                focus:ring-2 focus:ring-inset transition-all duration-200
+                ${errors.regime 
+                  ? 'ring-red-500 focus:ring-red-500' 
+                  : 'ring-grey-300 focus:ring-primary'
+                }
               `}
             >
               <option value="celibataire">Célibataire</option>
@@ -64,72 +88,101 @@ export default function PersonalInfoForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-secondary-700 mb-2">
+            <label className="block text-sm font-medium text-text-primary mb-2">
               Nombre d&apos;enfants
             </label>
             <input
               type="number"
               {...register('nombreEnfants', { valueAsNumber: true })}
               className={`
-                block w-full rounded-lg border-0 px-4 py-3 bg-secondary-50
-                text-secondary-900 ring-1 ring-inset focus:ring-2 focus:ring-inset
+                block w-full rounded-main px-4 py-3 
+                bg-background-white border-0
+                text-text-primary ring-1 ring-inset
+                focus:ring-2 focus:ring-inset transition-all duration-200
                 ${errors.nombreEnfants 
-                  ? 'ring-error-500 focus:ring-error-500' 
-                  : 'ring-secondary-200 focus:ring-primary-500'
+                  ? 'ring-red-500 focus:ring-red-500' 
+                  : 'ring-grey-300 focus:ring-primary'
                 }
-                transition duration-200
               `}
             />
             {errors.nombreEnfants && (
-              <p className="mt-2 text-sm text-error-500">{errors.nombreEnfants.message}</p>
+              <p className="mt-2 text-sm text-red-600">{errors.nombreEnfants.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-secondary-700 mb-2">
+            <label className="block text-sm font-medium text-text-primary mb-2">
               Âge
             </label>
             <input
               type="number"
               {...register('age', { valueAsNumber: true })}
               className={`
-                block w-full rounded-lg border-0 px-4 py-3 bg-secondary-50
-                text-secondary-900 ring-1 ring-inset focus:ring-2 focus:ring-inset
+                block w-full rounded-main px-4 py-3 
+                bg-background-white border-0
+                text-text-primary ring-1 ring-inset
+                focus:ring-2 focus:ring-inset transition-all duration-200
                 ${errors.age 
-                  ? 'ring-error-500 focus:ring-error-500' 
-                  : 'ring-secondary-200 focus:ring-primary-500'
+                  ? 'ring-red-500 focus:ring-red-500' 
+                  : 'ring-grey-300 focus:ring-primary'
                 }
-                transition duration-200
               `}
             />
             {errors.age && (
-              <p className="mt-2 text-sm text-error-500">{errors.age.message}</p>
+              <p className="mt-2 text-sm text-red-600">{errors.age.message}</p>
             )}
           </div>
 
           {(regime === 'marie' || regime === 'pacse') && (
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-2">
+              <label className="block text-sm font-medium text-text-primary mb-2">
                 Âge du conjoint
               </label>
               <input
                 type="number"
                 {...register('ageConjoint', { valueAsNumber: true })}
                 className={`
-                  block w-full rounded-lg border-0 px-4 py-3 bg-secondary-50
-                  text-secondary-900 ring-1 ring-inset focus:ring-2 focus:ring-inset
+                  block w-full rounded-main px-4 py-3 
+                  bg-background-white border-0
+                  text-text-primary ring-1 ring-inset
+                  focus:ring-2 focus:ring-inset transition-all duration-200
                   ${errors.ageConjoint 
-                    ? 'ring-error-500 focus:ring-error-500' 
-                    : 'ring-secondary-200 focus:ring-primary-500'
+                    ? 'ring-red-500 focus:ring-red-500' 
+                    : 'ring-grey-300 focus:ring-primary'
                   }
-                  transition duration-200
                 `}
               />
               {errors.ageConjoint && (
-                <p className="mt-2 text-sm text-error-500">{errors.ageConjoint.message}</p>
+                <p className="mt-2 text-sm text-red-600">{errors.ageConjoint.message}</p>
               )}
             </div>
           )}
+
+          <div className="flex justify-between pt-5">
+            <button
+              type="button"
+              onClick={prevStep}
+              disabled={currentStep === 0}
+              className={`
+                ${currentStep === 0 ? 'invisible' : ''}
+                button button-light
+              `}
+            >
+              Précédent
+            </button>
+            
+            <button
+              type="button"
+              onClick={nextStep}
+              disabled={!canProceed}
+              className={`
+                button
+                ${!canProceed && 'opacity-50 cursor-not-allowed'}
+              `}
+            >
+              Suivant
+            </button>
+          </div>
         </div>
       </div>
     </div>
