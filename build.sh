@@ -12,7 +12,11 @@ npm run build
 
 # Create necessary files for GitHub Pages
 touch out/.nojekyll
-cp out/index.html out/404.html
+cp out/404.html out/index.html
+
+# Ensure all assets have correct paths
+find out -type f -name "*.html" -exec sed -i 's|href="/|href="/ramify-simu-succession/|g' {} +
+find out -type f -name "*.html" -exec sed -i 's|src="/|src="/ramify-simu-succession/|g' {} +
 
 # Deploy to GitHub Pages
-npx gh-pages -d out 
+npx gh-pages -d out -t true 
