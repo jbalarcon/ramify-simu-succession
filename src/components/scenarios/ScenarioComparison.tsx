@@ -4,7 +4,7 @@ import { useFormContext } from '../../context/FormContext';
 import { Bar } from 'react-chartjs-2';
 
 export default function ScenarioComparison() {
-  const { scenarios, activeScenarioId, addScenario } = useScenarios();
+  const { scenarios, addScenario } = useScenarios();
   const { personalInfo, patrimony } = useFormContext();
   const [scenarioName, setScenarioName] = useState('');
   const [scenarioDescription, setScenarioDescription] = useState('');

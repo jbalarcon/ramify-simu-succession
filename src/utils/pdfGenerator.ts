@@ -1,14 +1,26 @@
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { InheritanceResults } from './inheritanceCalculations';
 import { PersonalInfo, Patrimony } from '../types/patrimony';
+
+// Extend jsPDF type to include autoTable
+interface jsPDFWithAutoTable extends jsPDF {
+  autoTable: (options: {
+    startY: number;
+    head: string[][];
+    body: (string | number)[][];
+  }) => void;
+  lastAutoTable: {
+    finalY: number;
+  };
+}
 
 export function generatePDF(
   results: InheritanceResults,
   personalInfo: PersonalInfo,
   patrimony: Patrimony
 ) {
-  const doc = new jsPDF();
+  const doc = new jsPDF() as jsPDFWithAutoTable;
   const formatCurrency = (num: number) => 
     new Intl.NumberFormat('fr-FR', {
       style: 'currency',
@@ -49,14 +61,14 @@ export function generatePDF(
     // Add other assets...
   ];
 
-  (doc as any).autoTable({
+  doc.autoTable({
     startY: 85,
     head: [assetsData[0]],
     body: assetsData.slice(1),
   });
 
   // Results Summary
-  const currentY = (doc as any).lastAutoTable.finalY + 20;
+  const currentY = doc.lastAutoTable.finalY + 20;
   doc.setFontSize(16);
   doc.text('Résultats', 20, currentY);
   
@@ -69,7 +81,7 @@ export function generatePDF(
     ])
   ];
 
-  (doc as any).autoTable({
+  doc.autoTable({
     startY: currentY + 5,
     head: [resultsData[0]],
     body: resultsData.slice(1),
@@ -84,6 +96,5 @@ export function generatePDF(
     doc.internal.pageSize.height - 20
   );
 
-  // Save the PDF
-  doc.save('rapport-succession.pdf');
+  return doc;
 }

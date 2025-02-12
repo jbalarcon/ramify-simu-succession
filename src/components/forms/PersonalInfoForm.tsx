@@ -65,7 +65,7 @@ export default function PersonalInfoForm() {
 
           <div>
             <label className="block text-sm font-medium text-secondary-700 mb-2">
-              Nombre d'enfants
+              Nombre d&apos;enfants
             </label>
             <input
               type="number"

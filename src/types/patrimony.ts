@@ -3,6 +3,11 @@ export interface Asset {
     montantConjoint: number;
   }
   
+  export interface MonetaryValue {
+    montantClient: number;
+    montantConjoint: number;
+  }
+  
   export interface Patrimony {
     residencePrincipale: Asset;
     residenceSecondaire: Asset;

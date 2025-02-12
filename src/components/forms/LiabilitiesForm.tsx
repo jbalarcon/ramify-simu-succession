@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormRegister } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormContext } from '../../context/FormContext';
 import { useStepper } from '../../context/StepperContext';
@@ -35,7 +35,24 @@ export default function LiabilitiesForm() {
   // Automatically submit form data when it changes
   useEffect(() => {
     if (isValid) {
-      updatePatrimony(formData);
+      updatePatrimony({
+        emprunts: {
+          montantClient: formData.emprunts?.montantClient || 0,
+          montantConjoint: formData.emprunts?.montantConjoint || 0
+        },
+        impotsDus: {
+          montantClient: formData.impotsDus?.montantClient || 0,
+          montantConjoint: formData.impotsDus?.montantConjoint || 0
+        },
+        autresDettes: {
+          montantClient: formData.autresDettes?.montantClient || 0,
+          montantConjoint: formData.autresDettes?.montantConjoint || 0
+        },
+        fraisFuneraires: {
+          montantClient: formData.fraisFuneraires?.montantClient || 0,
+          montantConjoint: formData.fraisFuneraires?.montantConjoint || 0
+        }
+      });
     }
   }, [formData, isValid, updatePatrimony]);
 
@@ -50,11 +67,11 @@ export default function LiabilitiesForm() {
     <div className="space-y-6">
       <div className="space-y-4">
         {liabilityFields.map((field) => (
-          <AssetInput<LiabilitiesFormInputs>
+          <AssetInput<Record<string, { montantClient: number; montantConjoint: number }>>
             key={field.key}
             label={field.label}
             fieldName={field.key}
-            register={register}
+            register={register as UseFormRegister<Record<string, { montantClient: number; montantConjoint: number }>>}
             errors={errors}
             showConjoint={showConjoint}
           />

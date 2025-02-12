@@ -1,10 +1,11 @@
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormRegister } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormContext } from '../../context/FormContext';
 import { useStepper } from '../../context/StepperContext';
 import { assetFormSchema, AssetFormInputs } from '../../schemas/validation';
 import AssetInput from './AssetInput';
 import { useEffect } from 'react';
+import { MonetaryValue } from '../../types/patrimony';
 
 export default function AssetsForm() {
   const { personalInfo, patrimony, updatePatrimony } = useFormContext();
@@ -37,7 +38,32 @@ export default function AssetsForm() {
   // Automatically submit form data when it changes
   useEffect(() => {
     if (isValid) {
-      updatePatrimony(formData);
+      updatePatrimony({
+        residencePrincipale: {
+          montantClient: formData.residencePrincipale?.montantClient || 0,
+          montantConjoint: formData.residencePrincipale?.montantConjoint || 0
+        },
+        residenceSecondaire: {
+          montantClient: formData.residenceSecondaire?.montantClient || 0,
+          montantConjoint: formData.residenceSecondaire?.montantConjoint || 0
+        },
+        immobilierLocatif: {
+          montantClient: formData.immobilierLocatif?.montantClient || 0,
+          montantConjoint: formData.immobilierLocatif?.montantConjoint || 0
+        },
+        depotsAVue: {
+          montantClient: formData.depotsAVue?.montantClient || 0,
+          montantConjoint: formData.depotsAVue?.montantConjoint || 0
+        },
+        epargneMLT: {
+          montantClient: formData.epargneMLT?.montantClient || 0,
+          montantConjoint: formData.epargneMLT?.montantConjoint || 0
+        },
+        valeursMobilieres: {
+          montantClient: formData.valeursMobilieres?.montantClient || 0,
+          montantConjoint: formData.valeursMobilieres?.montantConjoint || 0
+        }
+      });
     }
   }, [formData, isValid, updatePatrimony]);
 
@@ -58,7 +84,7 @@ export default function AssetsForm() {
             key={field.key}
             label={field.label}
             fieldName={field.key}
-            register={register}
+            register={register as UseFormRegister<Record<string, MonetaryValue>>}
             errors={errors}
             showConjoint={showConjoint}
           />

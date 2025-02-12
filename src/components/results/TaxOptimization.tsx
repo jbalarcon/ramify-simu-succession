@@ -35,7 +35,7 @@ export default function TaxOptimization() {
     <div className="bg-white rounded-lg shadow">
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">
-          Suggestions d'Optimisation Fiscale
+          Suggestions d&apos;Optimisation Fiscale
         </h3>
         
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
