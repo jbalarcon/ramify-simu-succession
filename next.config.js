@@ -4,9 +4,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/ramify-simu-succession',
-  assetPrefix: '/ramify-simu-succession',
+  basePath: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
   trailingSlash: true,
+  distDir: 'dist',
 }
 
 module.exports = nextConfig 

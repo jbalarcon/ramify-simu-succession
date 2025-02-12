@@ -14,13 +14,16 @@ echo '{"extends": "next/core-web-vitals","ignorePatterns": ["**/*"]}' > .eslintr
 rm -rf .next out dist
 
 # Run the build
-next build
+npm run build
 
 # Create .nojekyll file
 touch out/.nojekyll
+
+# Create a copy of index.html as 404.html
+cp out/index.html out/404.html
 
 # Restore original ESLint config
 mv .eslintrc.json.bak .eslintrc.json
 
 # Deploy to GitHub Pages
-npx gh-pages -d out 
+npx gh-pages -d out -t true 
