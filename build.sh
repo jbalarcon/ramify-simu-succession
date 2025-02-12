@@ -17,13 +17,13 @@ rm -rf .next out dist
 npm run build
 
 # Create .nojekyll file
-touch out/.nojekyll
+touch dist/.nojekyll
 
 # Create a copy of index.html as 404.html
-cp out/index.html out/404.html
+cp dist/index.html dist/404.html
 
 # Restore original ESLint config
 mv .eslintrc.json.bak .eslintrc.json
 
 # Deploy to GitHub Pages
-npx gh-pages -d out -t true 
+npx gh-pages -d dist -t true 
