@@ -14,8 +14,8 @@ npm run build
 touch out/.nojekyll
 
 # Ensure all assets have correct paths
-find out -type f -name "*.html" -exec sed -i '' 's|href="/|href="/ramify-simu-succession/|g' {} +
-find out -type f -name "*.html" -exec sed -i '' 's|src="/|src="/ramify-simu-succession/|g' {} +
+find out -type f -name "*.html" -exec sed -i '' 's|href="/|href="/|g' {} +
+find out -type f -name "*.html" -exec sed -i '' 's|src="/|src="/|g' {} +
 
 # Deploy to GitHub Pages
 npx gh-pages --dotfiles -d out 
