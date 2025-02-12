@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simulateur de Succession 🏛️
 
-## Getting Started
+Un calculateur moderne et intuitif pour estimer la répartition de votre patrimoine selon les règles de succession en France.
 
-First, run the development server:
+## 🌟 Fonctionnalités
 
+- ✨ Interface utilisateur moderne et intuitive
+- 📊 Calcul détaillé de la répartition du patrimoine
+- 💡 Suggestions d'optimisation fiscale
+- 📝 Comparaison de différents scénarios
+- 📱 Design responsive adapté à tous les appareils
+- 🔒 Traitement local des données (pas de stockage serveur)
+
+## 🚀 Technologies Utilisées
+
+- [Next.js](https://nextjs.org/) - Framework React pour la production
+- [TypeScript](https://www.typescriptlang.org/) - Pour un code plus robuste
+- [Tailwind CSS](https://tailwindcss.com/) - Pour le style et le design
+- [React Context](https://reactjs.org/docs/context.html) - Pour la gestion d'état
+
+## 🛠️ Installation
+
+1. Clonez le dépôt :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/votre-username/simulateur-succession.git
+cd simulateur-succession
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installez les dépendances :
+```bash
+npm install
+# ou
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Créez un fichier `.env.local` avec les variables d'environnement nécessaires :
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Lancez le serveur de développement :
+```bash
+npm run dev
+# ou
+yarn dev
+```
 
-## Learn More
+Ouvrez [http://localhost:3000](http://localhost:3000) avec votre navigateur pour voir l'application.
 
-To learn more about Next.js, take a look at the following resources:
+## 📖 Guide d'Utilisation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Informations Personnelles** : Renseignez votre situation familiale et matrimoniale
+2. **Patrimoine** : Détaillez vos actifs et passifs
+3. **Résultats** : Visualisez la répartition estimée de votre patrimoine
+4. **Optimisation** : Découvrez des suggestions pour optimiser votre succession
+5. **Comparaison** : Créez différents scénarios pour comparer les résultats
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧪 Tests
 
-## Deploy on Vercel
+Lancez la suite de tests :
+```bash
+npm run test
+# ou
+yarn test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contribution
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Les contributions sont les bienvenues ! N'hésitez pas à :
+
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push sur la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📝 License
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 📧 Contact
+
+Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue ou à me contacter directement.
+
+---
+
+Développé avec ❤️ pour simplifier la planification successorale en France.
