@@ -5,7 +5,6 @@ import { useStepper } from '../../context/StepperContext';
 import { assetFormSchema, AssetFormInputs } from '../../schemas/validation';
 import AssetInput from './AssetInput';
 import { useEffect } from 'react';
-import { MonetaryValue } from '../../types/patrimony';
 
 export default function AssetsForm() {
   const { personalInfo, patrimony, updatePatrimony } = useFormContext();
