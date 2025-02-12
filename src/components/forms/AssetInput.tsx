@@ -1,5 +1,4 @@
 import { UseFormRegister, Path, FieldErrors } from 'react-hook-form';
-import { MonetaryValue } from '../../types/patrimony';
 import { AssetFormInputs, LiabilitiesFormInputs } from '../../schemas/validation';
 
 type FormType = AssetFormInputs | LiabilitiesFormInputs;

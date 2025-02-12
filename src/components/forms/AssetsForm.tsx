@@ -1,4 +1,4 @@
-import { useForm, UseFormRegister } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormContext } from '../../context/FormContext';
 import { useStepper } from '../../context/StepperContext';
