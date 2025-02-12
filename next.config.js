@@ -7,7 +7,6 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
   trailingSlash: true,
-  distDir: 'dist',
 }
 
 module.exports = nextConfig 
