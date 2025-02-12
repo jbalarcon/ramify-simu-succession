@@ -22,7 +22,7 @@ export default function Home() {
               
               <Stepper />
               
-              <div className="bg-white shadow-soft rounded-xl overflow-hidden animate-slide-up">
+              <div className="animate-slide-up">
                 <StepContent />
               </div>
 
