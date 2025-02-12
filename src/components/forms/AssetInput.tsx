@@ -1,15 +1,18 @@
-import { UseFormRegister, Path } from 'react-hook-form';
+import { UseFormRegister, Path, FieldErrors } from 'react-hook-form';
 import { MonetaryValue } from '../../types/patrimony';
+import { AssetFormInputs, LiabilitiesFormInputs } from '../../schemas/validation';
 
-interface AssetInputProps<T extends Record<string, MonetaryValue>> {
+type FormType = AssetFormInputs | LiabilitiesFormInputs;
+
+interface AssetInputProps<T extends FormType> {
   label: string;
   fieldName: keyof T;
   register: UseFormRegister<T>;
-  errors: any; // Temporarily use any to get the build working
+  errors: FieldErrors<T>;
   showConjoint: boolean;
 }
 
-export default function AssetInput<T extends Record<string, MonetaryValue>>({ 
+export default function AssetInput<T extends FormType>({ 
   label, 
   fieldName, 
   register, 
@@ -20,6 +23,10 @@ export default function AssetInput<T extends Record<string, MonetaryValue>>({
   const clientPath = `${String(fieldName)}.montantClient` as Path<T>;
   const conjointPath = `${String(fieldName)}.montantConjoint` as Path<T>;
 
+  const fieldErrors = errors[fieldName as string] as { montantClient?: { message: string }, montantConjoint?: { message: string } } | undefined;
+  const clientError = fieldErrors?.montantClient?.message;
+  const conjointError = fieldErrors?.montantConjoint?.message;
+
   return (
     <div className="space-y-4">
       <div>
@@ -29,7 +36,7 @@ export default function AssetInput<T extends Record<string, MonetaryValue>>({
         <input
           type="number"
           className={`mt-1 block w-full rounded-md shadow-sm ${
-            errors[String(fieldName)]?.montantClient ? 'border-red-300' : 'border-gray-300'
+            clientError ? 'border-red-300' : 'border-gray-300'
           }`}
           {...register(clientPath, { 
             valueAsNumber: true,
@@ -37,9 +44,9 @@ export default function AssetInput<T extends Record<string, MonetaryValue>>({
             min: { value: 0, message: "La valeur doit être positive" }
           })}
         />
-        {errors[String(fieldName)]?.montantClient && (
+        {clientError && (
           <p className="mt-1 text-sm text-red-600">
-            {errors[String(fieldName)]?.montantClient?.message}
+            {clientError}
           </p>
         )}
       </div>
@@ -52,7 +59,7 @@ export default function AssetInput<T extends Record<string, MonetaryValue>>({
           <input
             type="number"
             className={`mt-1 block w-full rounded-md shadow-sm ${
-              errors[String(fieldName)]?.montantConjoint ? 'border-red-300' : 'border-gray-300'
+              conjointError ? 'border-red-300' : 'border-gray-300'
             }`}
             {...register(conjointPath, {
               valueAsNumber: true,
@@ -60,9 +67,9 @@ export default function AssetInput<T extends Record<string, MonetaryValue>>({
               min: { value: 0, message: "La valeur doit être positive" }
             })}
           />
-          {errors[String(fieldName)]?.montantConjoint && (
+          {conjointError && (
             <p className="mt-1 text-sm text-red-600">
-              {errors[String(fieldName)]?.montantConjoint?.message}
+              {conjointError}
             </p>
           )}
         </div>

@@ -80,11 +80,11 @@ export default function AssetsForm() {
     <div className="space-y-6">
       <div className="space-y-4">
         {assetFields.map((field) => (
-          <AssetInput
+          <AssetInput<AssetFormInputs>
             key={field.key}
             label={field.label}
             fieldName={field.key}
-            register={register as UseFormRegister<Record<string, MonetaryValue>>}
+            register={register}
             errors={errors}
             showConjoint={showConjoint}
           />

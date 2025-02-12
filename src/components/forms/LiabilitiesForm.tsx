@@ -67,11 +67,11 @@ export default function LiabilitiesForm() {
     <div className="space-y-6">
       <div className="space-y-4">
         {liabilityFields.map((field) => (
-          <AssetInput<Record<string, { montantClient: number; montantConjoint: number }>>
+          <AssetInput<LiabilitiesFormInputs>
             key={field.key}
             label={field.label}
             fieldName={field.key}
-            register={register as UseFormRegister<Record<string, { montantClient: number; montantConjoint: number }>>}
+            register={register}
             errors={errors}
             showConjoint={showConjoint}
           />
