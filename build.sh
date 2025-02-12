@@ -16,4 +16,4 @@ mv .eslintrc.json.bak .eslintrc.json
 touch out/.nojekyll
 
 # Deploy to GitHub Pages
-gh-pages -d out -t true 
+gh-pages -d out 
