@@ -4,9 +4,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/ramify-simu-succession' : '',
   trailingSlash: true,
+}
+
+// GitHub Pages deployment configuration
+if (process.env.GITHUB_ACTIONS === 'true') {
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+  nextConfig.assetPrefix = `/${repo}/`
+  nextConfig.basePath = `/${repo}`
 }
 
 module.exports = nextConfig 
