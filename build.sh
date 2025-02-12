@@ -10,14 +10,21 @@ mv .eslintrc.json .eslintrc.json.bak
 # Create a temporary ESLint config that ignores everything
 echo '{"extends": "next/core-web-vitals","ignorePatterns": ["**/*"]}' > .eslintrc.json
 
+# Clean previous builds
+rm -rf dist out
+
 # Run the build
 next build
 
-# Restore original ESLint config
-mv .eslintrc.json.bak .eslintrc.json
+# Copy the exported files from dist/out to out
+mkdir -p out
+cp -r dist/out/* out/
 
 # Create .nojekyll file
 touch out/.nojekyll
 
+# Restore original ESLint config
+mv .eslintrc.json.bak .eslintrc.json
+
 # Deploy to GitHub Pages
-gh-pages -d out 
+gh-pages -d out --dotfiles true 

@@ -1,23 +1,13 @@
 /** @type {import('next').NextConfig} */
-const isGithubActions = process.env.GITHUB_ACTIONS || false;
-
-let assetPrefix = '';
-let basePath = '';
-
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '');
-  assetPrefix = `/${repo}/`;
-  basePath = `/${repo}`;
-}
-
 const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
   },
-  basePath,
-  assetPrefix,
+  basePath: '/ramify-simu-succession',
+  assetPrefix: '/ramify-simu-succession',
   trailingSlash: true,
+  distDir: 'dist',
 }
 
 module.exports = nextConfig 
