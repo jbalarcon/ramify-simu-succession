@@ -11,14 +11,10 @@ mv .eslintrc.json .eslintrc.json.bak
 echo '{"extends": "next/core-web-vitals","ignorePatterns": ["**/*"]}' > .eslintrc.json
 
 # Clean previous builds
-rm -rf dist out
+rm -rf .next out dist
 
 # Run the build
 next build
-
-# Copy the exported files from dist/out to out
-mkdir -p out
-cp -r dist/out/* out/
 
 # Create .nojekyll file
 touch out/.nojekyll
@@ -26,5 +22,5 @@ touch out/.nojekyll
 # Restore original ESLint config
 mv .eslintrc.json.bak .eslintrc.json
 
-# Deploy to GitHub Pages
+# Deploy to GitHub Pages with dotfiles
 gh-pages -d out --dotfiles true 

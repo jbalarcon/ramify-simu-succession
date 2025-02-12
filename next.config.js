@@ -7,7 +7,6 @@ const nextConfig = {
   basePath: '/ramify-simu-succession',
   assetPrefix: '/ramify-simu-succession',
   trailingSlash: true,
-  distDir: 'dist',
 }
 
 module.exports = nextConfig 
